@@ -1,0 +1,174 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Button from "./Button";
+import { FaRegHeart } from "react-icons/fa";
+import { MdDeliveryDining } from "react-icons/md";
+import { GiReturnArrow } from "react-icons/gi";
+
+import ProductCard from "./ProductCard";
+import SectionHeading from "./SectionHeading";
+
+export default function ProductPage() {
+  const [productDetails, setProductDetails] = useState({});
+  const [relatedProducts, setRelatedProducts] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { product } = useParams();
+  const {
+    id,
+    category,
+    description,
+    images,
+    noOfReviews,
+    pricing,
+    rating,
+    title,
+  } = productDetails;
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch(
+        `https://ecommercebackend-wveh.onrender.com/products/${product}`
+      );
+
+      const result = await response.json();
+      setProductDetails(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchRelatedProducts = async () => {
+    try {
+      const response = await fetch(
+        `https://ecommercebackend-wveh.onrender.com/categories/${category}`
+      );
+
+      const result = await response.json();
+      setRelatedProducts(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+    fetchRelatedProducts();
+  }, []);
+  console.log(relatedProducts);
+  //   console.log(category);
+
+  return (
+    <>
+      <div className="flex gap-12 justify-center items-center my-20 flex-col lg:flex-row">
+        <div className="flex gap-2">
+          <div className="flex gap-2 flex-col">
+            {images?.map((image, index) => (
+              <img
+                src={image}
+                alt=""
+                key={index}
+                className="w-[100px] h-[100px] rounded"
+                onClick={() => {
+                  setCurrentIndex(index);
+                }}
+              />
+            ))}
+          </div>
+          <div>
+            <img
+              src={images?.[currentIndex]}
+              alt=""
+              className="w-[30rem] rounded"
+            />
+          </div>
+        </div>
+        <div>
+          <div className="flex gap-2 flex-col ">
+            <h3 className="font-bold">{title}</h3>
+            <div className="flex gap-3 items-center ">
+              <p className="font-bold">{rating}</p>
+              <p className="text-gray-500 text-sm">({noOfReviews} reviews) |</p>
+              <p className="text-sm text-green-300"> In Stock</p>
+            </div>
+            <p>
+              ${pricing?.mrp}{" "}
+              <span className="line-through ml-2 ">${pricing?.cost}</span>
+            </p>
+            <p className="font-semibold">{description}</p>
+          </div>
+          <hr className="border my-4" />
+          <div className="flex gap-4 items-center">
+            <div className="flex gap-4 border items-center">
+              <button
+                className="border-r px-4 py-2 text-xl font-bold"
+                onClick={() =>
+                  setQuantity((prev) => {
+                    return prev > 0 ? prev - 1 : 0;
+                  })
+                }
+              >
+                -
+              </button>
+              {quantity}
+              <button
+                className="border-l px-4 py-2 text-xl font-bold"
+                onClick={() => setQuantity((prev) => prev + 1)}
+              >
+                +
+              </button>
+            </div>
+            <Button buttonText="Buy Now" />
+            <div className="border-2 p-2 rounded">
+              <FaRegHeart />
+            </div>
+          </div>
+          <div className="border-2 rounded mt-8 ">
+            <div className="flex gap-6 items-center mb-4 border-b-2 p-4">
+              <MdDeliveryDining className="text-6xl" />
+              <div>
+                <p className="font-bold">Free Delivery</p>
+                <p className="font-bold text-xs">
+                  Enter your postal code fro Delivery Availability
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-8 items-center p-4">
+              <GiReturnArrow className="text-5xl" />
+              <div>
+                <p className="font-bold">Return Delivery</p>
+                <p className="font-bold text-xs">
+                  Free 30 Days Delivery Returns.{" "}
+                  <span className="underline">Details</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="px-20">
+        {relatedProducts?.length > 0 && (
+          <SectionHeading sectionHeading="Related Item" />
+        )}
+
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))]  gap-8 my-12 ">
+          {relatedProducts?.length > 0 &&
+            relatedProducts.map((product, index) => {
+              return (
+                <ProductCard
+                  key={index}
+                  imgUrl={product?.images[0]}
+                  productName={product.title}
+                  rating={product.rating}
+                  noOfRating={product.noOfReviews}
+                  mrp={product?.pricing?.mrp}
+                  cost={product?.pricing?.cost}
+                  id={product.id}
+                  discount={product.pricing.discount}
+                />
+              );
+            })}
+        </div>
+      </div>
+    </>
+  );
+}
