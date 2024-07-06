@@ -11,12 +11,14 @@ import AllBestSellerPage from "./components/AllBestSellerPage.jsx";
 import AllProductPage from "./components/AllProductPage.jsx";
 import Wishlist from "./components/Wishlist.jsx";
 import CategoryPage from "./components/CategoryPage.jsx";
+import { Toaster } from "react-hot-toast";
 
 //data
 import data from "./context/contextApi.jsx";
 
 import Cart from "./components/Cart.jsx";
 import ProductPage from "./components/ProductPage.jsx";
+import SearchPage from "./components/SearchPage.jsx";
 
 export default function App() {
   const [allProducts, setAllProducts] = useState([]);
@@ -26,6 +28,7 @@ export default function App() {
 
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchBestSellerData();
@@ -43,7 +46,7 @@ export default function App() {
 
       setAllDealData([...result]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -66,7 +69,7 @@ export default function App() {
 
       setAllCategories(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   const fetchAllProductData = async () => {
@@ -77,13 +80,15 @@ export default function App() {
       const result = await response.json();
       setAllProducts(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <div>
+        <Toaster />
+      </div>
       <data.Provider
         value={{
           allDealData,
@@ -94,8 +99,12 @@ export default function App() {
           allCategories,
           cart,
           setCart,
+          searchQuery,
+          setSearchQuery,
         }}
       >
+        {" "}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/flash-deals" element={<AllDealsPage />} />
@@ -107,6 +116,7 @@ export default function App() {
           <Route path="/all-products" element={<AllProductPage />} />
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/product/:product" element={<ProductPage />} />
+          <Route path="/products/:searchQuery" element={<SearchPage />} />
         </Routes>
       </data.Provider>
       <Footer />

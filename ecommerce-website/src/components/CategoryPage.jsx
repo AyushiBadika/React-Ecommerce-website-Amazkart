@@ -15,11 +15,9 @@ export default function CategoryPage() {
 
       setCategoryData(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-  console.log(category);
-  console.log(categoryData);
   useEffect(() => {
     fetchCategoryData();
   }, []);

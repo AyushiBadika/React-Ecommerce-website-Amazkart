@@ -31,10 +31,9 @@ export default function Products() {
   //ui
   return (
     <div className="  my-12">
-      <SectionHeading sectionHeading="This Month" />
-
       <div className="flex justify-between items-center mb-8 ">
-        <h1 className="font-bold text-2xl">Explore Our products</h1>
+        <SectionHeading sectionHeading="Explore Our products" />
+        {/* <h1 className="font-bold text-2xl">Explore Our products</h1> */}
         <div className="flex gap-4">
           <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center ">
             <FaArrowLeft

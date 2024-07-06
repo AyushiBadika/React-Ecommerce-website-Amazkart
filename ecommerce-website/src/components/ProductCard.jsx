@@ -27,10 +27,8 @@ export default function ProductCard({
       const index = wishlist?.indexOf(item);
       const temp = [...wishlist];
       temp.splice(index, 1);
-      console.log("remove", id);
       setWishlist(temp);
     } else {
-      console.log("added", id);
       setWishlist((prev) => [...prev, allProducts[id - 1]]);
     }
   }
@@ -39,7 +37,7 @@ export default function ProductCard({
     const item = cart.find((item) => item.id == id);
     if (item) {
       setCart((prev) => {
-        const productIndex = prev.indexOf(item);
+        const productIndex = prev?.indexOf(item);
         prev[productIndex].quantity = prev[productIndex].quantity + 1;
 
         return prev;
@@ -64,19 +62,21 @@ export default function ProductCard({
   // console.log(wishlist.find((item) => item.id == id));
   return (
     <div className="product-card relative  group flex flex-col h-full py-8 px-6 rounded bg-white">
-      <div className="absolute right-4" onClick={() => handleWishlist(id)}>
-        {wishlist?.find((item) => item.id == id) === undefined ? (
-          <FaRegHeart />
-        ) : (
-          <FaHeart />
-        )}
-      </div>
-      <div className="bg-red-600 w-12 text-white flex justify-center items-center rounded absolute right-2 top-2">
-        -{discount}
+      <div className="absolute right-4 top-4 flex gap-2 items-center ">
+        <div className="bg-red-600 w-12 text-white flex justify-center items-center rounded text-sm">
+          -{discount}
+        </div>
+        <div onClick={() => handleWishlist(id)}>
+          {wishlist?.find((item) => item.id == id) === undefined ? (
+            <FaRegHeart className="cursor-pointer" />
+          ) : (
+            <FaHeart fill="red" className="cursor-pointer" />
+          )}
+        </div>
       </div>
       <div
         onClick={(e) => handleProductClick(id)}
-        className="w-40 h-40 self-center cursor-pointer"
+        className="md:w-40 md:h-40 w-36 h-36 self-center cursor-pointer"
       >
         <img src={imgUrl} alt={productName} className="w-full h-full" />
       </div>
@@ -92,7 +92,7 @@ export default function ProductCard({
       </div>
       <button
         onClick={() => handleCartItems(id, imgUrl, cost, productName)}
-        className="bg-black w-full absolute left-0 h-[50px] text-white font-bold top-1/2 opacity-0 group-hover:opacity-100"
+        className="bg-black w-full absolute left-0 h-[50px] text-white font-bold top-1/2 opacity-0 group-hover:opacity-100 active:scale-95"
       >
         Add to Cart
       </button>

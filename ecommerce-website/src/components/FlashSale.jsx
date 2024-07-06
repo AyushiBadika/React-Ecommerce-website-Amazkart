@@ -13,6 +13,18 @@ export default function FlashSale() {
   const [tenDealData, setTenDealData] = useState([]);
   const scrollContainerRef = useRef(null);
   const { allDealData } = useContext(data);
+  const [time, setTime] = useState(1500);
+
+  useEffect(() => {
+    let timer = setInterval(() => {
+      setTime((time) => {
+        if (time === 0) {
+          clearInterval(timer);
+          return 0;
+        } else return time - 1;
+      });
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     const temp = allDealData.slice(0, 10);
@@ -30,10 +42,10 @@ export default function FlashSale() {
 
   return (
     <div className=" my-12">
-      <SectionHeading />
-      <div className="flex  justify-between  ">
-        <div className="flex  lg:w-[45%] flex-col lg:flex-row gap-4 md:gap-2 justify-between">
-          <h3 className="text-2xl font-bold">Flash Sales</h3>
+      <div className="flex  justify-between  items-center  ">
+        <div className="flex md:w-[60%] lg:[45%] flex-col lg:flex-row gap-4 md:gap-2 justify-between">
+          {/* <h3 className="text-2xl font-bold">Flash Sales</h3> */}
+          <SectionHeading sectionHeading="Flash Sales" />
           <div className="flex gap-4 items-center ">
             <div className="flex flex-col items-center">
               <p className="font-semibold text-sm ">Days</p>
@@ -47,17 +59,19 @@ export default function FlashSale() {
             <p className="font-bold text-lg">:</p>
             <div className="flex flex-col items-center">
               <p className="font-semibold text-sm ">Minutes</p>
-              <p className="text-xl">19</p>
+              <p className="text-xl">
+                {`${Math.floor(time / 60)}`.padStart(2, 0)}
+              </p>
             </div>
             <p className="font-bold text-lg">:</p>
             <div className="flex flex-col items-center">
               <p className="font-semibold text-sm ">Seconds</p>
-              <p className="text-xl">56</p>
+              <p className="text-xl"> {`${time % 60}`.padStart(2, 0)}</p>
             </div>
           </div>
         </div>
         <div className="flex gap-4">
-          <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center ">
+          <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center">
             <FaArrowLeft
               className="cursor-pointer "
               onClick={() => scroll(-200)}

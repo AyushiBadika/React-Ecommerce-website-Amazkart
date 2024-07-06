@@ -31,10 +31,9 @@ export default function BestSeller() {
   //ui
   return (
     <div className=" pt-6 mb-10">
-      <SectionHeading sectionHeading="This Month" />
-
       <div className="flex justify-between items-center mb-8 ">
-        <h1 className="font-bold text-2xl">Best Selling Products</h1>
+        {/* <h1 className="font-bold text-2xl"></h1> */}
+        <SectionHeading sectionHeading="Best Selling Products" />
         <Link to="/best-sellers">
           <Button buttonText="View All" />
         </Link>

@@ -41,10 +41,10 @@ export default function Category() {
   const { allCategories } = useContext(data);
 
   return (
-    <div className=" mt-32 mb-12">
-      <SectionHeading sectionHeading={"Categories"} />
-      <h3 className="text-2xl font-bold mb-8 ">Browse by Category</h3>
-      <div className="flex gap-12 justify-center flex-wrap ">
+    <div className=" mt-32 mb-20">
+      <SectionHeading sectionHeading={"Browse by Category"} />
+      {/* <h3 className="text-2xl font-bold mb-8 ">Browse by Category</h3> */}
+      <div className="flex gap-10 justify-center flex-wrap mt-8">
         {allCategories.map((item, index) => {
           return (
             <Link

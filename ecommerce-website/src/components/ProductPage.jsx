@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "./Button";
 import { FaRegHeart } from "react-icons/fa";
@@ -7,8 +7,10 @@ import { GiReturnArrow } from "react-icons/gi";
 
 import ProductCard from "./ProductCard";
 import SectionHeading from "./SectionHeading";
+import data from "../context/contextApi";
 
 export default function ProductPage() {
+  const { cart, setCart } = useContext(data);
   const [productDetails, setProductDetails] = useState({});
   const [relatedProducts, setRelatedProducts] = useState({});
   const [quantity, setQuantity] = useState(1);
@@ -25,6 +27,31 @@ export default function ProductPage() {
     title,
   } = productDetails;
 
+  function handleCartQuantity(id, imgUrl, cost, productName) {
+    console.log("handling");
+    const item = cart?.find((item) => item.id == id);
+    console.log("item h h h h", item);
+    if (item) {
+      setCart((prev) => {
+        const productIndex = prev?.indexOf(item);
+        prev[productIndex].quantity += quantity;
+
+        return prev;
+      });
+    } else {
+      setCart((prev) => [
+        ...prev,
+        {
+          id: id,
+          imgUrl: imgUrl,
+          productName: productName,
+          cost: cost,
+          quantity: quantity,
+        },
+      ]);
+    }
+  }
+
   const fetchProduct = async () => {
     try {
       const response = await fetch(
@@ -34,9 +61,10 @@ export default function ProductPage() {
       const result = await response.json();
       setProductDetails(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+
   const fetchRelatedProducts = async () => {
     try {
       const response = await fetch(
@@ -46,7 +74,7 @@ export default function ProductPage() {
       const result = await response.json();
       setRelatedProducts(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -54,8 +82,6 @@ export default function ProductPage() {
     fetchProduct();
     fetchRelatedProducts();
   }, []);
-  console.log(relatedProducts);
-  //   console.log(category);
 
   return (
     <>
@@ -117,7 +143,14 @@ export default function ProductPage() {
                 +
               </button>
             </div>
-            <Button buttonText="Buy Now" />
+            <div
+              onClick={(e) => {
+                console.log("clicked");
+                handleCartQuantity(id, images?.[0], pricing?.cost, title);
+              }}
+            >
+              <Button buttonText="Add to Cart" />
+            </div>
             <div className="border-2 p-2 rounded">
               <FaRegHeart />
             </div>
@@ -128,7 +161,7 @@ export default function ProductPage() {
               <div>
                 <p className="font-bold">Free Delivery</p>
                 <p className="font-bold text-xs">
-                  Enter your postal code fro Delivery Availability
+                  Enter your postal code for Delivery Availability
                 </p>
               </div>
             </div>
@@ -137,7 +170,7 @@ export default function ProductPage() {
               <div>
                 <p className="font-bold">Return Delivery</p>
                 <p className="font-bold text-xs">
-                  Free 30 Days Delivery Returns.{" "}
+                  Free 30 Days Returns.{" "}
                   <span className="underline">Details</span>
                 </p>
               </div>

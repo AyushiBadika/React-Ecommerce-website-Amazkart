@@ -2,10 +2,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { FaRegUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { auth, db } from "../utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import data from "../context/contextApi";
@@ -13,20 +13,20 @@ import data from "../context/contextApi";
 export default function Navbar() {
   const [userDetails, setUserDetails] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
-  // const { setCart } = useContext(data);
+  const { searchQuery, setSearchQuery, cart } = useContext(data);
 
   async function fetchUserData() {
     auth.onAuthStateChanged(async (user) => {
-      const docRef = doc(db, "Users", user.uid);
+      const docRef = doc(db, "Users", user?.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        // console.log(docSnap);
         setUserDetails(docSnap.data());
-      } else console.log("User is not logged in");
+      } else {
+        console.log("User is not logged in");
+      }
     });
   }
-  console.log(userDetails);
 
   useEffect(() => {
     fetchUserData();
@@ -38,14 +38,19 @@ export default function Navbar() {
       console.log("userLogged out");
       setUserDetails(null);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
+
+  const navigate = useNavigate();
+  const handleSearch = () => {
+    navigate(`/products/${searchQuery}`);
+  };
+
   return (
     <header className="flex justify-between items-center  xl:px-20 lg:px-18 md:px-12 px-2 pt-6 pb-2">
       <h1 className="text-2xl font-bold tracking-wide">
-        {" "}
-        <Link to="/">Exclusive </Link>
+        <Link to="/">Amazkart</Link>
       </h1>
       <ul className="lg:flex xl:gap-12 lg:gap-6 hidden gap-4">
         <li className="hover:underline font-semibold cursor-pointer">
@@ -58,7 +63,7 @@ export default function Navbar() {
           <Link to="/about">About</Link>
         </li>
         <li className="hover:underline font-semibold cursor-pointer">
-          <Link to="/sign-up">Sign Up</Link>
+          <Link to="/sign-in">Sign In</Link>
         </li>
       </ul>
       <div className="flex gap-4 items-center relative">
@@ -70,14 +75,14 @@ export default function Navbar() {
         />
         <ul
           className={`${
-            menuVisible ? "blcok" : "hidden"
-          } absolute top-full   bg-white shadow-sm   rounded -left-6`}
+            menuVisible ? "block" : "hidden"
+          } absolute top-full bg-white shadow-sm rounded -left-6 z-200`}
         >
           <li className="hover:underline font-semibold cursor-pointer border-b px-8 py-4">
-            <Link to="/">Home </Link>
+            <Link to="/">Home</Link>
           </li>
           <li className="hover:underline font-semibold cursor-pointer border-b px-8 py-4">
-            <Link to="/contact">Contact </Link>
+            <Link to="/contact">Contact</Link>
           </li>
           <li className="hover:underline font-semibold cursor-pointer border-b px-8 py-4">
             <Link to="/about">About</Link>
@@ -89,30 +94,37 @@ export default function Navbar() {
 
         <div className="relative hidden lg:block">
           <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             className="bg-gray-200 rounded-md py-2 pl-4 w-[300px] text-sm"
             placeholder="What are you looking for?"
           />
-          <SearchIcon className="absolute right-2 top-1/2 -translate-y-1/2" />
+          <SearchIcon
+            className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+            onClick={handleSearch}
+          />
         </div>
         <Link to="/wishlist">
           <FavoriteBorderIcon />
         </Link>
-        <Link to="/cart">
-          {" "}
+        <Link to="/cart" className="relative">
           <ShoppingCartIcon />
+          <p className="w-5 h-5 bg-red-600 text-white flex justify-center items-center rounded-full absolute  -top-2 -right-2">
+            {cart.length}
+          </p>
         </Link>
         <div className="relative">
           {userDetails ? (
             <>
               <FaRegUserCircle className="text-2xl peer" />
               <ul
-                className={`${"absolute  bg-white z-50 peer-hover:block hidden hover:block w-[200px]  rounded right-1/2 translate-x-1/2 shadow-md"}`}
+                className={`${"absolute bg-white z-100 peer-hover:block hidden hover:block w-[200px] rounded right-[28%] shadow-md"}`}
               >
-                <li className="p-1 px-4 rounded">{userDetails?.name}</li>
+                <li className="p-2 px-4 rounded">{userDetails?.name}</li>
                 <li
                   onClick={handleLogout}
-                  className="bg-red-600 text-white p-1 px-4 rounded"
+                  className="bg-red-600 text-white p-2 px-4 rounded"
                 >
                   logout
                 </li>

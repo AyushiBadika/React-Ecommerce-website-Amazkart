@@ -4,6 +4,7 @@ import imgUrl from "../assets/signUpPage.avif";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
+
 export default function SignUp() {
   const [formData, setFormData] = useState({
     email: "",
@@ -25,17 +26,18 @@ export default function SignUp() {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      await signInWithEmailAndPassword(auth, email, password).then((data) => {
+        navigate("/");
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
   return (
     <div className="flex h-[calc(100vh-70px)] mt-6 items-center gap-28 ">
-      <img src={imgUrl} alt="Shop Now" className="w-1/2 h-full " />
-      <div className="   w-1/4">
+      <img src={imgUrl} alt="Shop Now" className="w-1/2 lg:block hidden" />
+      <div className="   w-full px-20 md:px-32 lg:px-0 lg:w-1/4">
         <h2 className="text-2xl font-bold mb-4 ">Login to Exclusive</h2>
         <p className="text-sm text-gray-600 mb-6 font-bold">
           Enter your details below
@@ -43,7 +45,7 @@ export default function SignUp() {
 
         <form onSubmit={signIN}>
           <div className="">
-            <div className="relative text-gray-400">
+            <div className="relative text-gray-400 mb-4">
               <input
                 type="text"
                 name="email"

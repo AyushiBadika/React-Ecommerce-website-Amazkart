@@ -1,3 +1,66 @@
 * {
   box-sizing: border-box;
 }
+
+/* Base Stripe element styling*/
+.StripeElement {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5rem;
+}
+
+/* Set styling when form field data is invalid */
+.StripeElement--invalid {
+  background-color: #ff00002e;
+}
+
+/* Set styling when form field data is completed and valid */
+.StripeElement--complete {
+  background-color: #00800015;
+}
+
+/* Set credit card number input field width */
+form.pmpro_form #pmpro_payment_information_fields div#AccountNumber {
+  max-width: 270px;
+}
+
+/* Set expiry date input field width */
+form.pmpro_form #pmpro_payment_information_fields div#Expiry {
+  max-width: 110px;
+}
+
+/* Set CVC/CVV input field width */
+form.pmpro_form #pmpro_payment_information_fields div#CVV {
+  max-width: 110px;
+}
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  text-align: center;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+  0% {
+    box-shadow: 20px 0 #fff, -20px 0 #fff2;
+    background: #fff;
+  }
+  33% {
+    box-shadow: 20px 0 #fff, -20px 0 #fff2;
+    background: #fff2;
+  }
+  66% {
+    box-shadow: 20px 0 #fff2, -20px 0 #fff;
+    background: #fff2;
+  }
+  100% {
+    box-shadow: 20px 0 #fff2, -20px 0 #fff;
+    background: #fff;
+  }
+}
+
+button:active {
+  transform: scale(0.95);
+}

@@ -68,9 +68,9 @@ export default function HeroSection() {
   // setInterval(scrollBanner, 1000);
 
   return (
-    <>
+    <div className="md:block hidden">
       <div
-        className="flex overflow-x-scroll scrollbarWidth overflow-y-hidden mt-6 "
+        className="flex overflow-x-scroll scrollbarWidth overflow-y-hidden mt-6  "
         style={{
           scrollbarWidth: "none",
         }}
@@ -110,6 +110,6 @@ export default function HeroSection() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }

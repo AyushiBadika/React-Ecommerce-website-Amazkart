@@ -6,7 +6,7 @@ export default function AllProductPage() {
   const { allProducts } = useContext(data);
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))]  gap-8 my-20 px-20">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]  lg:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 my-20 px-2 md:px-20 md:gap-8">
       {allProducts?.length > 0 &&
         allProducts.map((product, index) => {
           return (
