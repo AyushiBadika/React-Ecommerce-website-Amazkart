@@ -24,6 +24,7 @@ export default function ProductPage() {
     rating,
     title,
   } = productDetails;
+
   const fetchProduct = async () => {
     try {
       const response = await fetch(

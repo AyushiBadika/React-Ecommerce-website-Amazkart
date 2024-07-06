@@ -1,6 +1,6 @@
 import imgUrl from "../assets/signUpPage.avif";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 //firebase
@@ -19,6 +19,7 @@ export default function SignUp() {
     password: "",
   });
   const { email, name, password } = formData;
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,7 +29,6 @@ export default function SignUp() {
       [name]: value,
     }));
   };
-  console.log(formData);
 
   //user register with email and password
   const handleUserSignUpWithEmailAndPassword = async (e) => {
@@ -58,6 +58,7 @@ export default function SignUp() {
         await setDoc(doc(db, "Users", result.user.uid), {
           name: result.user.displayName,
           email: result.user.email,
+          cart: cart,
         });
         navigate("/");
       }
@@ -65,6 +66,7 @@ export default function SignUp() {
       console.log(error);
     }
   };
+
   return (
     <div className="flex  h-[calc(100vh-70px)] mt-6 items-center gap-28">
       <img src={imgUrl} alt="Shop Now" className="w-1/2 h-full " />

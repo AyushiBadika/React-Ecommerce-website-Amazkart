@@ -3,19 +3,21 @@ import data from "../context/contextApi";
 import ProductCard from "./ProductCard";
 
 export default function Wishlist() {
-  const { wishlist, setWishlist } = useContext(data);
+  const { wishlist } = useContext(data);
   return (
     <div className="flex flex-wrap justify-center gap-8 mt-12">
       {wishlist?.length > 0 &&
-        wishlist.map((item, index) => (
+        wishlist.map((product, index) => (
           <ProductCard
-            productName={item.product_title}
-            imgUrl={item.product_photo}
-            rating={item.product_star_rating}
-            price={item.product_price}
-            noOfRating={item.product_num_ratings}
-            id={item.product_rank}
             key={index}
+            imgUrl={product?.images[0]}
+            productName={product.title}
+            rating={product.rating}
+            noOfRating={product.noOfReviews}
+            mrp={product?.pricing?.mrp}
+            cost={product?.pricing?.cost}
+            id={product.id}
+            discount={product.pricing.discount}
           />
         ))}
     </div>

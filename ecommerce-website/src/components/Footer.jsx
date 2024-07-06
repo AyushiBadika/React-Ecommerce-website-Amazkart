@@ -5,8 +5,8 @@ import { CiLinkedin } from "react-icons/ci";
 
 export default function Footer() {
   return (
-    <div className="bg-black text-white py-20  mt-32 px-20 w-full">
-      <div className=" grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))]  ">
+    <div className="bg-black text-white py-20  mt-32 px-20 w-full ">
+      <div className=" grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))]  translate-x-16">
         <div className="flex flex-col gap-4 mb-8">
           <h4 className="text-xl ">Exclusive</h4>
           <p>Subscribe</p>

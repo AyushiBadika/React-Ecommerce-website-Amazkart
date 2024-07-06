@@ -5,13 +5,15 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import data from "../context/contextApi";
 
 export default function Navbar() {
   const [userDetails, setUserDetails] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
+  // const { setCart } = useContext(data);
 
   async function fetchUserData() {
     auth.onAuthStateChanged(async (user) => {
@@ -19,10 +21,12 @@ export default function Navbar() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
+        // console.log(docSnap);
         setUserDetails(docSnap.data());
       } else console.log("User is not logged in");
     });
   }
+  console.log(userDetails);
 
   useEffect(() => {
     fetchUserData();
