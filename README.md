@@ -33,13 +33,15 @@ A full-featured e-commerce website with user authentication, product management,
 
 ### Installation
 
-1. Clone the repository
-   git clone https://github.com/AyushiBadika/React-Ecommerce-website-Amazkart
-2. Navigate to the project directory
+1. Clone the repository <br/>
+
+- git clone https://github.com/AyushiBadika/React-Ecommerce-website-Amazkart
+
+2. Navigate to the project directory <br/>
    cd ecommerce-website
-3. Install dependencies
+3. Install dependencies <br/>
    npm install
-4. Start the development server
+4. Start the development server <br/>
    npm run dev
 
 ## Firebase Integration
