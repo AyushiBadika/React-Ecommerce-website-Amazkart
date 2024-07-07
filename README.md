@@ -28,9 +28,33 @@ Hosted Link : https://react-ecommerce-website-exclusive.vercel.app/
 - Firebase (for database and authentication)
 - Vercel (for deployment)
 
-## Getting Started
+## Screen Shots
 
-### Prerequisites
+### Home Page
+
+![Home Page](./ecommerce-website/src/assets/home-page.png)
+
+### Category
+
+![Category](./ecommerce-website/src/assets/category-section.png)
+
+### Product Page
+
+![Product Page](./ecommerce-website/src/assets/product-page.png)
+
+### Sign In
+
+![Sign-In](./ecommerce-website/src/assets/cart.png)
+
+### Wishlist
+
+![Wishlist](./ecommerce-website/src/assets/wishlist.png)
+
+### Shopping Cart
+
+![Shopping Cart](./ecommerce-website/src/assets/cart.png)
+
+## Getting Started
 
 ### Installation
 
