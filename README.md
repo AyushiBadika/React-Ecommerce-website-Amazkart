@@ -44,7 +44,7 @@ Hosted Link : https://react-ecommerce-website-exclusive.vercel.app/
 
 ### Sign In
 
-![Sign-In](./ecommerce-website/src/assets/cart.png)
+![Sign-In](./ecommerce-website/src/assets/sign-in-sign-up.png)
 
 ### Wishlist
 
