@@ -5,15 +5,24 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { auth, db } from "../utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import data from "../context/contextApi";
 
 export default function Navbar() {
   const [userDetails, setUserDetails] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
-  const { searchQuery, setSearchQuery, cart } = useContext(data);
+  const {
+    searchQuery,
+    setSearchQuery,
+    cart,
+    wishlist,
+    setCart,
+    setWishlist,
+    isLoggedIn,
+    setIsLoggedIn,
+  } = useContext(data);
 
   async function fetchUserData() {
     auth.onAuthStateChanged(async (user) => {
@@ -22,11 +31,29 @@ export default function Navbar() {
 
       if (docSnap.exists()) {
         setUserDetails(docSnap.data());
+        setIsLoggedIn(true);
       } else {
         console.log("User is not logged in");
       }
     });
   }
+
+  async function updateUserData() {
+    const docRef = doc(db, "Users", auth?.currentUser?.uid);
+
+    const newData = await {
+      wishlist: wishlist,
+      cart: cart,
+    };
+
+    await setDoc(docRef, newData, {
+      merge: true,
+    }).then(() => console.log("data updated"));
+  }
+
+  useEffect(() => {
+    updateUserData();
+  }, [cart, wishlist]);
 
   useEffect(() => {
     fetchUserData();
@@ -34,8 +61,12 @@ export default function Navbar() {
 
   async function handleLogout() {
     try {
-      auth.signOut();
-      console.log("userLogged out");
+      await auth.signOut();
+      setIsLoggedIn(false);
+      setCart([]);
+      setWishlist([]);
+      navigate("/");
+
       setUserDetails(null);
     } catch (error) {
       console.error(error);
@@ -62,9 +93,11 @@ export default function Navbar() {
         <li className="hover:underline font-semibold cursor-pointer">
           <Link to="/about">About</Link>
         </li>
-        <li className="hover:underline font-semibold cursor-pointer">
-          <Link to="/sign-in">Sign In</Link>
-        </li>
+        {!isLoggedIn && (
+          <li className="hover:underline font-semibold cursor-pointer">
+            <Link to="/sign-in">Sign In</Link>
+          </li>
+        )}
       </ul>
       <div className="flex gap-4 items-center relative">
         <GiHamburgerMenu

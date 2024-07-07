@@ -1,8 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import data from "../context/contextApi";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
-import Button from "./Button";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({
@@ -17,6 +16,9 @@ export default function ProductCard({
 }) {
   const navigate = useNavigate();
 
+  const { wishlist, setWishlist, allProducts, cart, setCart } =
+    useContext(data);
+
   function handleProductClick(id) {
     navigate(`/product/${id}`);
   }
@@ -29,7 +31,10 @@ export default function ProductCard({
       temp.splice(index, 1);
       setWishlist(temp);
     } else {
-      setWishlist((prev) => [...prev, allProducts[id - 1]]);
+      setWishlist((prev) => [
+        ...prev,
+        allProducts.find((prod) => prod.id == id),
+      ]);
     }
   }
 
@@ -56,15 +61,11 @@ export default function ProductCard({
     }
   }
 
-  const { wishlist, setWishlist, allProducts, cart, setCart } =
-    useContext(data);
-
-  // console.log(wishlist.find((item) => item.id == id));
   return (
     <div className="product-card relative  group flex flex-col h-full py-8 px-6 rounded bg-white">
       <div className="absolute right-4 top-4 flex gap-2 items-center ">
         <div className="bg-red-600 w-12 text-white flex justify-center items-center rounded text-sm">
-          -{discount}
+          -{discount}%
         </div>
         <div onClick={() => handleWishlist(id)}>
           {wishlist?.find((item) => item.id == id) === undefined ? (
@@ -75,7 +76,7 @@ export default function ProductCard({
         </div>
       </div>
       <div
-        onClick={(e) => handleProductClick(id)}
+        onClick={() => handleProductClick(id)}
         className="md:w-40 md:h-40 w-36 h-36 self-center cursor-pointer"
       >
         <img src={imgUrl} alt={productName} className="w-full h-full" />
@@ -92,7 +93,7 @@ export default function ProductCard({
       </div>
       <button
         onClick={() => handleCartItems(id, imgUrl, cost, productName)}
-        className="bg-black w-full absolute left-0 h-[50px] text-white font-bold top-1/2 opacity-0 group-hover:opacity-100 active:scale-95"
+        className="bg-black w-full absolute left-0 h-[40px] text-white font-bold top-1/2 opacity-0 group-hover:opacity-100 active:scale-95"
       >
         Add to Cart
       </button>

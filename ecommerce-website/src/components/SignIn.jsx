@@ -1,9 +1,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import imgUrl from "../assets/signUpPage.avif";
-
+import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -20,6 +22,23 @@ export default function SignUp() {
       ...prevState,
       [name]: value,
     }));
+  };
+  const handleUserSignUpWithGoogle = async (e) => {
+    e.preventDefault();
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+
+      if (result) {
+        await setDoc(doc(db, "Users", result.user.uid), {
+          name: result.user.displayName,
+          email: result.user.email,
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   async function signIN(e) {
@@ -82,13 +101,22 @@ export default function SignUp() {
             </div>
           </div>
 
-          <div className="flex justify-between items-center">
-            <button
-              type="submit"
-              className=" bg-red-500 text-white py-2 px-8  rounded-md hover:bg-red-600 transition duration-300 mt-6"
-            >
-              Login
-            </button>
+          <div className="w-full flex flex-col justify-between">
+            <div>
+              <button
+                type="submit"
+                className="w-full bg-red-500 text-white py-2 px-8  rounded-md hover:bg-red-600 transition duration-300 mt-6"
+              >
+                Login
+              </button>
+              <button
+                className="w-full mt-4 py-2 px-4 border border-gray-300 rounded-md flex  gap-3 items-center justify-center hover:bg-gray-50 transition duration-300"
+                onClick={handleUserSignUpWithGoogle}
+              >
+                <FcGoogle />
+                Sign in with Google
+              </button>
+            </div>
             <p className="text-sm text-center mt-6">
               {"Don't have account?"}
               <Link

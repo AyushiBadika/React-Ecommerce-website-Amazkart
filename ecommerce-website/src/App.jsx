@@ -15,7 +15,6 @@ import { Toaster } from "react-hot-toast";
 
 //data
 import data from "./context/contextApi.jsx";
-
 import Cart from "./components/Cart.jsx";
 import ProductPage from "./components/ProductPage.jsx";
 import SearchPage from "./components/SearchPage.jsx";
@@ -27,6 +26,7 @@ export default function App() {
   const [allCategories, setAllCategories] = useState([]);
 
   const [cart, setCart] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -57,7 +57,9 @@ export default function App() {
       );
       const result = await response.json();
       setAllBestSellers(result);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchAllCategories = async () => {
@@ -101,6 +103,9 @@ export default function App() {
           setCart,
           searchQuery,
           setSearchQuery,
+          isLoggedIn,
+          setIsLoggedIn,
+          setAllProducts,
         }}
       >
         {" "}

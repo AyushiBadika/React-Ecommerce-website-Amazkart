@@ -16,6 +16,7 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { product } = useParams();
+  const [speaking, setSpeaking] = useState(false);
   const {
     id,
     category,
@@ -28,9 +29,8 @@ export default function ProductPage() {
   } = productDetails;
 
   function handleCartQuantity(id, imgUrl, cost, productName) {
-    console.log("handling");
     const item = cart?.find((item) => item.id == id);
-    console.log("item h h h h", item);
+
     if (item) {
       setCart((prev) => {
         const productIndex = prev?.indexOf(item);
@@ -120,7 +120,26 @@ export default function ProductPage() {
               ${pricing?.mrp}{" "}
               <span className="line-through ml-2 ">${pricing?.cost}</span>
             </p>
-            <p className="font-semibold">{description}</p>
+            <p className="font-semibold">
+              {description}{" "}
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  const synth = window.speechSynthesis;
+                  const utterance = new SpeechSynthesisUtterance(description);
+                  utterance.onstart = () => {
+                    setSpeaking(true);
+                  };
+
+                  utterance.onend = () => {
+                    setSpeaking(false);
+                  };
+                  synth.speak(utterance);
+                }}
+              >
+                {speaking ? "🔊" : "🔇"}
+              </span>
+            </p>
           </div>
           <hr className="border my-4" />
           <div className="flex gap-4 items-center">
@@ -144,8 +163,7 @@ export default function ProductPage() {
               </button>
             </div>
             <div
-              onClick={(e) => {
-                console.log("clicked");
+              onClick={() => {
                 handleCartQuantity(id, images?.[0], pricing?.cost, title);
               }}
             >

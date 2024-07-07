@@ -23,50 +23,6 @@ export default function HeroSection() {
     }
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (currentImage === images.length - 1 || currentImage === 0) {
-  //       setCurrentImage((prev) => (prev === 0 ? prev + 1 : prev - 1));
-  //       setFlag(!flag);
-  //     }
-  //     if (flag) {
-  //       scroll(1125);
-  //       console.log("true", currentImage);
-  //     } else {
-  //       scroll(-1125);
-  //       console.log("ffale");
-  //     }
-  //     console.log(flag, currentImage);
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     console.log("hi");
-  //     currentImage < images.length - 1
-  //       ? () => {
-  //           console.log("kpk");
-  //           currentImage = currentImage + 1;
-  //           scroll(1125);
-  //         }
-  //       : () => {
-  //           console.log("jbuvy");
-  //           currentImage = currentImage - 1;
-  //           scroll(-1125);
-  //         };
-  //   }, 1000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
-  // function scrollBanner() {
-  //   setCurrentImage((prev) => {
-  //     return (prev + 1) % images.length;
-  //   });
-  //   scrollContainerRef.style.transform = `translateX(-${currentImage * 100}%)`;
-  // }
-  // setInterval(scrollBanner, 1000);
-
   return (
     <div className="md:block hidden">
       <div
@@ -77,12 +33,7 @@ export default function HeroSection() {
         ref={scrollContainerRef}
       >
         {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            className=" "
-            // className={`${currentImage === index ? "block" : "hidden"}`}
-          />
+          <img key={index} src={image} className=" " />
         ))}
       </div>
 
@@ -90,23 +41,13 @@ export default function HeroSection() {
         <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center ">
           <FaArrowLeft
             className="cursor-pointer "
-            onClick={() =>
-              // setCurrentImage((prev) => {
-              //   return prev === 0 ? images.length - 1 : prev - 1;
-              // })
-              scroll(-1405)
-            }
+            onClick={() => scroll(-1405)}
           />
         </div>
         <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center">
           <FaArrowRight
             className="cursor-pointer"
-            onClick={() =>
-              // setCurrentImage((prev) => {
-              //   return prev === images.length - 1 ? 0 : prev + 1;
-              // })
-              scroll(1405)
-            }
+            onClick={() => scroll(1405)}
           />
         </div>
       </div>

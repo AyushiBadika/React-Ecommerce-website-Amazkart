@@ -6,6 +6,7 @@ import data from "../context/contextApi";
 import SectionHeading from "./SectionHeading";
 import emptyCart from "../assets/empty-cart.png";
 import App from "./Stripe/CheckoutForm";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   // img name quantity price
@@ -54,10 +55,11 @@ export default function Cart() {
       });
     }
   }
+
   return (
     <div className="flex flex-col   ">
       <div className="px-20 md:px-12 lg:px-20  mt-8">
-        <SectionHeading sectionHeading="Cart" />
+        {total > 0 && <SectionHeading sectionHeading="Cart" />}
       </div>
       <div className="flex flex-col flex-wrap justify-center gap-8 mt-12   md:px-12 px-4">
         {cart?.length > 0 &&
@@ -66,10 +68,12 @@ export default function Cart() {
               className="flex items-center justify-between bg-white rounded px-8 py-4 "
               key={index}
             >
-              <div className="flex items-center gap-2 w-[30%]">
-                <img src={item.imgUrl} alt="" className="w-10" />
-                <p className="font-bold">{item.productName}</p>
-              </div>
+              <Link to={`/product/${cart[index].id}`}>
+                <div className="flex items-center gap-2 w-[30%]">
+                  <img src={item.imgUrl} alt="" className="w-10" />
+                  <p className="font-bold">{item.productName}</p>
+                </div>
+              </Link>
               <p>${item.cost}</p>
               <div className="flex gap-2 items-center border px-2 rounded">
                 <p>{item.quantity}</p>

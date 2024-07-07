@@ -1,6 +1,6 @@
 import imgUrl from "../assets/signUpPage.avif";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 //firebase
@@ -11,8 +11,11 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import data from "../context/contextApi";
 
 export default function SignUp() {
+  const { cart, wishlist } = useContext(data);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -40,6 +43,8 @@ export default function SignUp() {
         await setDoc(doc(db, "Users", user.user.uid), {
           name: name,
           email: email,
+          cart: cart,
+          wishlist: wishlist,
         });
         navigate("/sign-in");
       }

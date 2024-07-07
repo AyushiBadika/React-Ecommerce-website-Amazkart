@@ -47,7 +47,6 @@ const CheckoutForm = ({ total }) => {
           },
         });
         if (paymentIntent?.status === "requires_payment_method") {
-          console.log("confirming");
           const confirmPayment = await stripe.confirmCardPayment(
             paymentIntent.client_secret,
             {
