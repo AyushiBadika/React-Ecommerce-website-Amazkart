@@ -117,8 +117,8 @@ export default function ProductPage() {
               <p className="text-sm text-green-300"> In Stock</p>
             </div>
             <p>
-              ${pricing?.mrp}{" "}
-              <span className="line-through ml-2 ">${pricing?.cost}</span>
+              ${pricing?.cost}{" "}
+              <span className="line-through ml-2 ">${pricing?.mrp}</span>
             </p>
             <p className="font-semibold">
               {description}{" "}

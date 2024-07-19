@@ -88,6 +88,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {alert("Please wait, first API call takes upto 1 min to fetch data")}
       <div>
         <Toaster />
       </div>
@@ -108,7 +109,6 @@ export default function App() {
           setAllProducts,
         }}
       >
-        {" "}
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
