@@ -58,14 +58,14 @@ export default function Cart() {
 
   return (
     <div className="flex flex-col   ">
-      <div className="px-20 md:px-12 lg:px-20  mt-8">
+      <div className="px-4 md:px-12 lg:px-20  mt-8">
         {total > 0 && <SectionHeading sectionHeading="Cart" />}
       </div>
       <div className="flex flex-col flex-wrap justify-center gap-8 mt-12   md:px-12 px-4">
         {cart?.length > 0 &&
           cart.map((item, index) => (
             <div
-              className="flex items-center justify-between bg-white rounded px-8 py-4 "
+              className="flex items-center justify-between bg-white rounded px-4 py-4 "
               key={index}
             >
               <Link to={`/product/${cart[index].id}`}>

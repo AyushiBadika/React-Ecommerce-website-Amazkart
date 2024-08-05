@@ -6,7 +6,7 @@ import emptyWishlist from "../assets/empty-wishlist.png";
 export default function Wishlist() {
   const { wishlist } = useContext(data);
   return (
-    <div className="flex flex-wrap justify-center gap-8 mt-12">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]  md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 my-20 px-8 sm:px-20 md:gap-8">
       {wishlist?.length > 0 ? (
         wishlist.map((product, index) => (
           <ProductCard

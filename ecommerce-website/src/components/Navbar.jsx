@@ -99,7 +99,7 @@ export default function Navbar() {
           </li>
         )}
       </ul>
-      <div className="flex gap-4 items-center relative">
+      <div className="flex gap-4 items-center relative z-10">
         <GiHamburgerMenu
           className="lg:hidden block  cursor-pointer text-xl"
           onClick={() => {

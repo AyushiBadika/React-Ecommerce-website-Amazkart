@@ -85,7 +85,7 @@ export default function ProductPage() {
 
   return (
     <>
-      <div className="flex gap-12 justify-center items-center my-20 flex-col lg:flex-row">
+      <div className="flex gap-12 justify-center items-center my-20 flex-col lg:flex-row p-4">
         <div className="flex gap-2">
           <div className="flex gap-2 flex-col">
             {images?.map((image, index) => (
@@ -93,7 +93,7 @@ export default function ProductPage() {
                 src={image}
                 alt=""
                 key={index}
-                className="w-[100px] h-[100px] rounded"
+                className="w-[100px] h-[60px] md:h-[100px]  rounded"
                 onClick={() => {
                   setCurrentIndex(index);
                 }}
@@ -167,7 +167,11 @@ export default function ProductPage() {
                 handleCartQuantity(id, images?.[0], pricing?.cost, title);
               }}
             >
-              <Button buttonText="Add to Cart" />
+              <button
+                className={`bg-red-600 text-white px-2 py-3 rounded font-semibold active:scale-95 md:text-lg text-sm`}
+              >
+                Add to Cart
+              </button>
             </div>
             <div className="border-2 p-2 rounded">
               <FaRegHeart />
@@ -197,12 +201,12 @@ export default function ProductPage() {
         </div>
       </div>
 
-      <div className="px-20">
+      <div className="px-8  ">
         {relatedProducts?.length > 0 && (
           <SectionHeading sectionHeading="Related Item" />
         )}
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))]  gap-8 my-12 ">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8 my-12 ">
           {relatedProducts?.length > 0 &&
             relatedProducts.map((product, index) => {
               return (

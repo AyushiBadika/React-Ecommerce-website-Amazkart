@@ -41,12 +41,11 @@ export default function FlashSale() {
   };
 
   return (
-    <div className=" my-12">
-      <div className="flex  justify-between  items-center  ">
+    <div className="my-12">
+      <div className="flex  justify-between ">
         <div className="flex md:w-[60%] lg:[45%] flex-col lg:flex-row gap-4 md:gap-2 justify-between">
-          {/* <h3 className="text-2xl font-bold">Flash Sales</h3> */}
           <SectionHeading sectionHeading="Flash Sales" />
-          <div className="flex gap-4 items-center ">
+          <div className="flex gap-1 items-center ">
             <div className="flex flex-col items-center">
               <p className="font-semibold text-sm ">Days</p>
               <p className="text-xl">03</p>
@@ -70,14 +69,14 @@ export default function FlashSale() {
             </div>
           </div>
         </div>
-        <div className="flex gap-4">
-          <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center">
+        <div className="flex gap-4 mt-2">
+          <div className=" w-[35px] h-[35px] bg-gray-200 rounded-full flex justify-center items-center">
             <FaArrowLeft
               className="cursor-pointer "
               onClick={() => scroll(-200)}
             />
           </div>
-          <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center">
+          <div className=" w-[35px] h-[35px] bg-gray-200 rounded-full flex justify-center items-center">
             <FaArrowRight
               className="cursor-pointer"
               onClick={() => scroll(200)}

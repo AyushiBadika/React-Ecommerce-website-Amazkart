@@ -34,7 +34,7 @@ export default function AllProductPage() {
 
   return (
     <>
-      <form className="flex flex-wrap gap-8 bg-white rounded shadow-sm py-8 px-12 w-[1/5]">
+      <form className="flex flex-wrap gap-8 bg-white rounded shadow-sm py-8 px-8 w-[1/5]">
         <div className="flex gap-2 flex-col">
           <label className="font-bold">Rating</label>
           <select
@@ -133,7 +133,7 @@ export default function AllProductPage() {
         </button>
       </form>
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))]  lg:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 my-20 px-2 md:px-20 md:gap-8">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))]  md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 my-20 px-8 md:px-20 md:gap-8">
         {allProducts?.length > 0
           ? allProducts.map((product) => {
               return (

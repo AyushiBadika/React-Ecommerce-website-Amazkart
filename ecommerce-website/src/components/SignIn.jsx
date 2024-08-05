@@ -54,9 +54,9 @@ export default function SignUp() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-70px)] mt-6 items-center gap-28 ">
+    <div className="flex h-[calc(90vh-70px)] mt-10 items-center gap-28 ">
       <img src={imgUrl} alt="Shop Now" className="w-1/2 lg:block hidden" />
-      <div className="   w-full px-20 md:px-32 lg:px-0 lg:w-1/4">
+      <div className="   w-full px-8 md:px-32 lg:px-0 lg:w-1/4">
         <h2 className="text-2xl font-bold mb-4 ">Login to Exclusive</h2>
         <p className="text-sm text-gray-600 mb-6 font-bold">
           Enter your details below
