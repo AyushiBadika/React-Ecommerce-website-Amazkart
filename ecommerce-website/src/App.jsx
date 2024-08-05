@@ -86,9 +86,12 @@ export default function App() {
     }
   };
 
+  useEffect(() => {
+    alert("Please wait, first API call takes upto 1 min to fetch data");
+  }, []);
+
   return (
     <BrowserRouter>
-      {alert("Please wait, first API call takes upto 1 min to fetch data")}
       <div>
         <Toaster />
       </div>

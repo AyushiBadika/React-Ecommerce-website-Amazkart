@@ -85,7 +85,7 @@ export default function ProductPage() {
 
   return (
     <>
-      <div className="flex gap-12 justify-center items-center my-20 flex-col lg:flex-row p-4">
+      <div className="flex gap-12 justify-center items-center mt-8 mb-20 flex-col lg:flex-row p-4">
         <div className="flex gap-2">
           <div className="flex gap-2 flex-col">
             {images?.map((image, index) => (
@@ -137,7 +137,7 @@ export default function ProductPage() {
                   synth.speak(utterance);
                 }}
               >
-                {speaking ? "🔊" : "🔇"}
+                {speaking ? "🔇" : "🔊"}
               </span>
             </p>
           </div>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
+import SectionHeading from "./SectionHeading";
 
 export default function CategoryPage() {
   const { category } = useParams();
@@ -23,8 +24,9 @@ export default function CategoryPage() {
   }, []);
 
   return (
-    <div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]  md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 my-20 px-8 md:px-20 md:gap-8 ">
+    <div className="px-8 md:px-20 mt-8">
+      <SectionHeading sectionHeading={`${category}'s category`} />
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]  md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-8  md:gap-8 ">
         {categoryData?.length > 0 &&
           categoryData.map((product, index) => {
             return (

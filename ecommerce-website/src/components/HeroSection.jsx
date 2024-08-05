@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import img1 from "../assets/carousal-image-1.jpg";
@@ -11,8 +11,6 @@ import img7 from "../assets/carousal-image-7.jpg";
 
 const images = [img1, img2, img3, img4, img5, img6, img7];
 export default function HeroSection() {
-  // const [currentImage, setCurrentImage] = useState(0);
-
   const scrollContainerRef = useRef(null);
   const scroll = (scrollOffset) => {
     if (scrollContainerRef.current) {

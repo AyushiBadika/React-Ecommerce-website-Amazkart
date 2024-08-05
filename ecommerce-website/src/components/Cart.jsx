@@ -68,8 +68,8 @@ export default function Cart() {
               className="flex items-center justify-between bg-white rounded px-4 py-4 "
               key={index}
             >
-              <Link to={`/product/${cart[index].id}`}>
-                <div className="flex items-center gap-2 w-[30%]">
+              <Link to={`/product/${cart[index].id}`} className="w-[30%]">
+                <div className="flex items-center gap-2 ">
                   <img src={item.imgUrl} alt="" className="w-10" />
                   <p className="font-bold">{item.productName}</p>
                 </div>
