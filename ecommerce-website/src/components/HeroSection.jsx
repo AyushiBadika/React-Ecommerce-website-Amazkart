@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import img1 from "../assets/carousal-image-1.jpg";
@@ -11,42 +11,42 @@ import img7 from "../assets/carousal-image-7.jpg";
 
 const images = [img1, img2, img3, img4, img5, img6, img7];
 export default function HeroSection() {
-  const scrollContainerRef = useRef(null);
-  const scroll = (scrollOffset) => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: scrollOffset,
-        behavior: "smooth",
-      });
-    }
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      handleNext();
+    }, 5000);
+
+    return () => clearTimeout(id);
+  }, [currentIndex]);
+
+  const handlePrev = () => {
+    if (currentIndex === 0) setCurrentIndex(images.length - 1);
+    else setCurrentIndex((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (currentIndex === images.length - 1) setCurrentIndex(0);
+    else setCurrentIndex((prev) => prev + 1);
   };
 
   return (
     <div className="md:block hidden">
-      <div
-        className="flex overflow-x-scroll scrollbarWidth overflow-y-hidden mt-6  "
-        style={{
-          scrollbarWidth: "none",
-        }}
-        ref={scrollContainerRef}
-      >
-        {images.map((image, index) => (
-          <img key={index} src={image} className=" " />
-        ))}
+      <div className="flex overflow-hidden scrollbarWidth  mt-6  ">
+        <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+          {images.map((image, index) => (
+            <img key={index} src={image} className=" " />
+          ))}
+        </div>
       </div>
 
       <div className="flex gap-4 mt-4 lg:pl-20 pl-8">
         <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center ">
-          <FaArrowLeft
-            className="cursor-pointer "
-            onClick={() => scroll(-1405)}
-          />
+          <FaArrowLeft className="cursor-pointer " onClick={handlePrev} />
         </div>
         <div className=" w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center">
-          <FaArrowRight
-            className="cursor-pointer"
-            onClick={() => scroll(1405)}
-          />
+          <FaArrowRight className="cursor-pointer" onClick={handleNext} />
         </div>
       </div>
     </div>

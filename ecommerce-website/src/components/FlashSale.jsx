@@ -41,9 +41,9 @@ export default function FlashSale() {
   };
 
   return (
-    <div className="my-12">
+    <div className="md:my-12 mt-10 mb-12">
       <div className="flex  justify-between ">
-        <div className="flex md:w-[60%] lg:[45%] flex-col lg:flex-row gap-4 md:gap-2 justify-between">
+        <div className="flex md:w-[60%] lg:w-[45%] flex-col lg:flex-row gap-4 md:gap-2 justify-between">
           <SectionHeading sectionHeading="Flash Sales" />
           <div className="flex gap-1 items-center ">
             <div className="flex flex-col items-center">
@@ -58,9 +58,7 @@ export default function FlashSale() {
             <p className="font-bold text-lg">:</p>
             <div className="flex flex-col items-center">
               <p className="font-semibold text-sm ">Minutes</p>
-              <p className="text-xl">
-                {`${Math.floor(time / 60)}`.padStart(2, 0)}
-              </p>
+              <p className="text-xl">{`${Math.floor(time / 60)}`.padStart(2, 0)}</p>
             </div>
             <p className="font-bold text-lg">:</p>
             <div className="flex flex-col items-center">
@@ -71,41 +69,19 @@ export default function FlashSale() {
         </div>
         <div className="flex gap-4 mt-2">
           <div className=" w-[35px] h-[35px] bg-gray-200 rounded-full flex justify-center items-center">
-            <FaArrowLeft
-              className="cursor-pointer "
-              onClick={() => scroll(-200)}
-            />
+            <FaArrowLeft className="cursor-pointer " onClick={() => scroll(-200)} />
           </div>
           <div className=" w-[35px] h-[35px] bg-gray-200 rounded-full flex justify-center items-center">
-            <FaArrowRight
-              className="cursor-pointer"
-              onClick={() => scroll(200)}
-            />
+            <FaArrowRight className="cursor-pointer" onClick={() => scroll(200)} />
           </div>
         </div>
       </div>
 
       <div className=" ">
-        <div
-          ref={scrollContainerRef}
-          className="flex flex-grow gap-4 overflow-x-scroll scrollbar-hide mb-8 py-8"
-          style={{ scrollbarWidth: "none" }}
-        >
+        <div ref={scrollContainerRef} className="flex flex-grow gap-4 overflow-x-scroll scrollbar-hide mb-8 py-8" style={{ scrollbarWidth: "none" }}>
           {tenDealData?.length > 0 &&
             tenDealData.map((product, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  imgUrl={product.images[0]}
-                  productName={product.title}
-                  rating={product.rating}
-                  noOfRating={product.noOfReviews}
-                  mrp={product?.pricing?.mrp}
-                  cost={product?.pricing?.cost}
-                  id={product.id}
-                  discount={product.pricing.discount}
-                />
-              );
+              return <ProductCard key={index} imgUrl={product.images[0]} productName={product.title} rating={product.rating} noOfRating={product.noOfReviews} mrp={product?.pricing?.mrp} cost={product?.pricing?.cost} id={product.id} discount={product.pricing.discount} />;
             })}
         </div>
       </div>

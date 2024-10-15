@@ -32,48 +32,25 @@ export default function BestSeller() {
   return (
     <div className=" pt-6 mb-10">
       <div className="flex justify-between items-center mb-8 ">
-        {/* <h1 className="font-bold text-2xl"></h1> */}
         <SectionHeading sectionHeading="Best Selling Products" />
         <Link to="/best-sellers">
           <Button buttonText="View All" />
         </Link>
       </div>
       <div className="relative w-full ">
-        <div
-          ref={scrollContainerRef}
-          className="flex flex-grow gap-4 overflow-x-scroll scrollbar-hide mb-8 py-8 "
-          style={{ scrollbarWidth: "none" }}
-        >
+        <div ref={scrollContainerRef} className="flex flex-grow gap-4 overflow-x-scroll scrollbar-hide mb-8 py-8 " style={{ scrollbarWidth: "none" }}>
           {firstFour &&
             firstFour.map((product, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  imgUrl={product?.images[0]}
-                  productName={product.title}
-                  rating={product.rating}
-                  noOfRating={product.noOfReviews}
-                  mrp={product?.pricing?.mrp}
-                  cost={product?.pricing?.cost}
-                  id={product.id}
-                  discount={product.pricing.discount}
-                />
-              );
+              return <ProductCard key={index} imgUrl={product?.images[0]} productName={product.title} rating={product.rating} noOfRating={product.noOfReviews} mrp={product?.pricing?.mrp} cost={product?.pricing?.cost} id={product.id} discount={product.pricing.discount} />;
             })}
         </div>
 
         <div className="">
           <div className="absolute xl:-left-16 xl:top-1/2   w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center  top-1/2 -translate-y-1/2 -left-5">
-            <FaArrowLeft
-              className="cursor-pointer "
-              onClick={() => scroll(-200)}
-            />
+            <FaArrowLeft className="cursor-pointer " onClick={() => scroll(-200)} />
           </div>
           <div className="absolute xl:-right-16  xl:top-1/2 -translate-y-1/2 w-[40px] h-[40px] bg-gray-200 rounded-full flex justify-center items-center  top-1/2  -right-5">
-            <FaArrowRight
-              className="cursor-pointer"
-              onClick={() => scroll(200)}
-            />
+            <FaArrowRight className="cursor-pointer" onClick={() => scroll(200)} />
           </div>
         </div>
       </div>

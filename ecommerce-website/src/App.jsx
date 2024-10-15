@@ -11,14 +11,13 @@ import AllBestSellerPage from "./components/AllBestSellerPage.jsx";
 import AllProductPage from "./components/AllProductPage.jsx";
 import Wishlist from "./components/Wishlist.jsx";
 import CategoryPage from "./components/CategoryPage.jsx";
-import { Toaster } from "react-hot-toast";
-
-//data
-import data from "./context/contextApi.jsx";
 import Cart from "./components/Cart.jsx";
 import ProductPage from "./components/ProductPage.jsx";
 import SearchPage from "./components/SearchPage.jsx";
+import AboutUs from "./components/About.jsx";
 
+import { Toaster } from "react-hot-toast";
+import data from "./context/contextApi.jsx";
 export default function App() {
   const [allProducts, setAllProducts] = useState([]);
   const [allDealData, setAllDealData] = useState([]);
@@ -39,9 +38,7 @@ export default function App() {
 
   const fetchDealData = async () => {
     try {
-      const response = await fetch(
-        "https://ecommercebackend-wveh.onrender.com/deals"
-      );
+      const response = await fetch("https://lokenrao.koyeb.app/deals");
       const result = await response.json();
 
       setAllDealData([...result]);
@@ -52,9 +49,7 @@ export default function App() {
 
   const fetchBestSellerData = async () => {
     try {
-      const response = await fetch(
-        "https://ecommercebackend-wveh.onrender.com/bestseller"
-      );
+      const response = await fetch("https://lokenrao.koyeb.app/bestseller");
       const result = await response.json();
       setAllBestSellers(result);
     } catch (error) {
@@ -64,9 +59,7 @@ export default function App() {
 
   const fetchAllCategories = async () => {
     try {
-      const response = await fetch(
-        "https://ecommercebackend-wveh.onrender.com/categories"
-      );
+      const response = await fetch("https://lokenrao.koyeb.app/categories");
       const result = await response.json();
 
       setAllCategories(result);
@@ -76,19 +69,13 @@ export default function App() {
   };
   const fetchAllProductData = async () => {
     try {
-      const response = await fetch(
-        "https://ecommercebackend-wveh.onrender.com/products"
-      );
+      const response = await fetch("https://lokenrao.koyeb.app/products");
       const result = await response.json();
       setAllProducts(result);
     } catch (error) {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    alert("Please wait, first API call takes upto 1 min to fetch data");
-  }, []);
 
   return (
     <BrowserRouter>
@@ -115,6 +102,7 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/flash-deals" element={<AllDealsPage />} />
           <Route path="/best-sellers" element={<AllBestSellerPage />} />
           <Route path="/sign-up" element={<SignUp />} />

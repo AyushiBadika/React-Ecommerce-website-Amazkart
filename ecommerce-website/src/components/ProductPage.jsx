@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import Button from "./Button";
 import { FaRegHeart } from "react-icons/fa";
 import { MdDeliveryDining } from "react-icons/md";
@@ -17,16 +17,7 @@ export default function ProductPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { product } = useParams();
   const [speaking, setSpeaking] = useState(false);
-  const {
-    id,
-    category,
-    description,
-    images,
-    noOfReviews,
-    pricing,
-    rating,
-    title,
-  } = productDetails;
+  const { id, category, description, images, noOfReviews, pricing, rating, title } = productDetails;
 
   function handleCartQuantity(id, imgUrl, cost, productName) {
     const item = cart?.find((item) => item.id == id);
@@ -54,9 +45,7 @@ export default function ProductPage() {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(
-        `https://ecommercebackend-wveh.onrender.com/products/${product}`
-      );
+      const response = await fetch(`https://lokenrao.koyeb.app/product/${product}`);
 
       const result = await response.json();
       setProductDetails(result);
@@ -67,9 +56,7 @@ export default function ProductPage() {
 
   const fetchRelatedProducts = async () => {
     try {
-      const response = await fetch(
-        `https://ecommercebackend-wveh.onrender.com/categories/${category}`
-      );
+      const response = await fetch(`https://lokenrao.koyeb.app/categories/${category}`);
 
       const result = await response.json();
       setRelatedProducts(result);
@@ -81,10 +68,18 @@ export default function ProductPage() {
   useEffect(() => {
     fetchProduct();
     fetchRelatedProducts();
-  }, []);
+  }, [productDetails]);
+  const scrollView = useRef(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    scrollView.current.scrollIntoView({ behavior: "smooth" });
+  }, [location]);
 
   return (
     <>
+      <div ref={scrollView}></div>
       <div className="flex gap-12 justify-center items-center mt-8 mb-20 flex-col lg:flex-row p-4">
         <div className="flex gap-2">
           <div className="flex gap-2 flex-col">
@@ -101,11 +96,7 @@ export default function ProductPage() {
             ))}
           </div>
           <div>
-            <img
-              src={images?.[currentIndex]}
-              alt=""
-              className="w-[30rem] rounded"
-            />
+            <img src={images?.[currentIndex]} alt="" className="w-[30rem] rounded" />
           </div>
         </div>
         <div>
@@ -117,8 +108,7 @@ export default function ProductPage() {
               <p className="text-sm text-green-300"> In Stock</p>
             </div>
             <p>
-              ${pricing?.cost}{" "}
-              <span className="line-through ml-2 ">${pricing?.mrp}</span>
+              ${pricing?.cost} <span className="line-through ml-2 ">${pricing?.mrp}</span>
             </p>
             <p className="font-semibold">
               {description}{" "}
@@ -155,10 +145,7 @@ export default function ProductPage() {
                 -
               </button>
               {quantity}
-              <button
-                className="border-l px-4 py-2 text-xl font-bold"
-                onClick={() => setQuantity((prev) => prev + 1)}
-              >
+              <button className="border-l px-4 py-2 text-xl font-bold" onClick={() => setQuantity((prev) => prev + 1)}>
                 +
               </button>
             </div>
@@ -167,11 +154,7 @@ export default function ProductPage() {
                 handleCartQuantity(id, images?.[0], pricing?.cost, title);
               }}
             >
-              <button
-                className={`bg-red-600 text-white px-2 py-3 rounded font-semibold active:scale-95 md:text-lg text-sm`}
-              >
-                Add to Cart
-              </button>
+              <button className={`bg-red-600 text-white px-2 py-3 rounded font-semibold active:scale-95 md:text-lg text-sm`}>Add to Cart</button>
             </div>
             <div className="border-2 p-2 rounded">
               <FaRegHeart />
@@ -182,9 +165,7 @@ export default function ProductPage() {
               <MdDeliveryDining className="text-6xl" />
               <div>
                 <p className="font-bold">Free Delivery</p>
-                <p className="font-bold text-xs">
-                  Enter your postal code for Delivery Availability
-                </p>
+                <p className="font-bold text-xs">Enter your postal code for Delivery Availability</p>
               </div>
             </div>
             <div className="flex gap-8 items-center p-4">
@@ -192,8 +173,7 @@ export default function ProductPage() {
               <div>
                 <p className="font-bold">Return Delivery</p>
                 <p className="font-bold text-xs">
-                  Free 30 Days Returns.{" "}
-                  <span className="underline">Details</span>
+                  Free 30 Days Returns. <span className="underline">Details</span>
                 </p>
               </div>
             </div>
@@ -201,26 +181,16 @@ export default function ProductPage() {
         </div>
       </div>
 
-      <div className="px-8  ">
-        {relatedProducts?.length > 0 && (
-          <SectionHeading sectionHeading="Related Item" />
-        )}
+      <div className="px-8 md:px-20 ">
+        {relatedProducts?.length > 0 && <SectionHeading sectionHeading="Related Item" />}
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8 my-12 ">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]  md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 mt-8 md:gap-8">
           {relatedProducts?.length > 0 &&
             relatedProducts.map((product, index) => {
               return (
-                <ProductCard
-                  key={index}
-                  imgUrl={product?.images[0]}
-                  productName={product.title}
-                  rating={product.rating}
-                  noOfRating={product.noOfReviews}
-                  mrp={product?.pricing?.mrp}
-                  cost={product?.pricing?.cost}
-                  id={product.id}
-                  discount={product.pricing.discount}
-                />
+                <div key={index}>
+                  <ProductCard imgUrl={product?.images[0]} productName={product.title} rating={product.rating} noOfRating={product.noOfReviews} mrp={product?.pricing?.mrp} cost={product?.pricing?.cost} id={product.id} discount={product.pricing.discount} />
+                </div>
               );
             })}
         </div>

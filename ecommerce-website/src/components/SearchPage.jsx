@@ -9,9 +9,7 @@ export default function SearchPage() {
 
   const fetchSearchData = async () => {
     try {
-      const response = await fetch(
-        `https://ecommercebackend-wveh.onrender.com/search/${searchQuery}`
-      );
+      const response = await fetch(`https://lokenrao.koyeb.app/search/${searchQuery}`);
       const result = await response.json();
       setSearchedData(result);
     } catch (error) {
@@ -31,17 +29,7 @@ export default function SearchPage() {
             searchedData.map((product, index) => {
               return (
                 <div key={index}>
-                  <ProductCard
-                    key={index}
-                    imgUrl={product?.images[0]}
-                    productName={product.title}
-                    rating={product.rating}
-                    noOfRating={product.noOfReviews}
-                    mrp={product?.pricing?.mrp}
-                    cost={product?.pricing?.cost}
-                    id={product.id}
-                    discount={product.pricing.discount}
-                  />
+                  <ProductCard key={index} imgUrl={product?.images[0]} productName={product.title} rating={product.rating} noOfRating={product.noOfReviews} mrp={product?.pricing?.mrp} cost={product?.pricing?.cost} id={product.id} discount={product.pricing.discount} />
                 </div>
               );
             })}
