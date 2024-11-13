@@ -16,7 +16,7 @@ export default function CategoryPage() {
 
   const fetchCategoryData = async () => {
     try {
-      const response = await fetch(`https://lokenrao.koyeb.app/categories/${category}`);
+      const response = await fetch(`https://ayushibadika.koyeb.app/categories/${category}`);
       const result = await response.json();
 
       setCategoryData(result);

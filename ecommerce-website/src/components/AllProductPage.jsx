@@ -23,7 +23,7 @@ export default function AllProductPage() {
 
   const fetchAllProductData = async () => {
     try {
-      const response = await fetch(`https://lokenrao.koyeb.app/products?rating=${filterParams.rating}&pricegt=${filterParams.pricegt}&pricelt=${filterParams.pricelt}&discount=${filterParams.discount}&reviews=${filterParams.reviews}`);
+      const response = await fetch(`https://ayushibadika.koyeb.app/products?rating=${filterParams.rating}&pricegt=${filterParams.pricegt}&pricelt=${filterParams.pricelt}&discount=${filterParams.discount}&reviews=${filterParams.reviews}`);
       const result = await response.json();
       setAllProducts(result);
     } catch (error) {

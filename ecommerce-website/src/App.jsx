@@ -38,9 +38,10 @@ export default function App() {
 
   const fetchDealData = async () => {
     try {
-      const response = await fetch("https://lokenrao.koyeb.app/deals");
+      const response = await fetch("https://ayushibadika.koyeb.app/deals");
       const result = await response.json();
 
+      console.log(result);
       setAllDealData([...result]);
     } catch (error) {
       console.error(error);
@@ -49,7 +50,7 @@ export default function App() {
 
   const fetchBestSellerData = async () => {
     try {
-      const response = await fetch("https://lokenrao.koyeb.app/bestseller");
+      const response = await fetch("https://ayushibadika.koyeb.app/bestseller");
       const result = await response.json();
       setAllBestSellers(result);
     } catch (error) {
@@ -59,7 +60,7 @@ export default function App() {
 
   const fetchAllCategories = async () => {
     try {
-      const response = await fetch("https://lokenrao.koyeb.app/categories");
+      const response = await fetch("https://ayushibadika.koyeb.app/categories");
       const result = await response.json();
 
       setAllCategories(result);
@@ -69,7 +70,7 @@ export default function App() {
   };
   const fetchAllProductData = async () => {
     try {
-      const response = await fetch("https://lokenrao.koyeb.app/products");
+      const response = await fetch("https://ayushibadika.koyeb.app/products");
       const result = await response.json();
       setAllProducts(result);
     } catch (error) {

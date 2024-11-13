@@ -45,7 +45,7 @@ export default function ProductPage() {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`https://lokenrao.koyeb.app/product/${product}`);
+      const response = await fetch(`https://ayushibadika.koyeb.app/product/${product}`);
 
       const result = await response.json();
       setProductDetails(result);
@@ -56,7 +56,7 @@ export default function ProductPage() {
 
   const fetchRelatedProducts = async () => {
     try {
-      const response = await fetch(`https://lokenrao.koyeb.app/categories/${category}`);
+      const response = await fetch(`https://ayushibadika.koyeb.app/categories/${category}`);
 
       const result = await response.json();
       setRelatedProducts(result);

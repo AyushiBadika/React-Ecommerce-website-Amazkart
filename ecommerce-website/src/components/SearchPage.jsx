@@ -9,7 +9,7 @@ export default function SearchPage() {
 
   const fetchSearchData = async () => {
     try {
-      const response = await fetch(`https://lokenrao.koyeb.app/search/${searchQuery}`);
+      const response = await fetch(`https://ayushibadika.koyeb.app/search/${searchQuery}`);
       const result = await response.json();
       setSearchedData(result);
     } catch (error) {
